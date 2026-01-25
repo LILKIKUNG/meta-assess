@@ -165,8 +165,8 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
             <DialogContent className="sm:max-w-2xl bg-slate-950 border-slate-800 text-white max-h-[85vh] p-0 gap-0 flex flex-col overflow-hidden">
-                <DialogHeader className="p-6 pb-4 border-b border-slate-800/50 bg-slate-950">
-                    <DialogTitle className="text-xl font-bold flex items-center justify-between">
+                <DialogHeader className="p-6 pb-4 border-b border-slate-800/50 bg-slate-950 pr-12">
+                    <DialogTitle className="text-2xl font-bold flex items-center justify-between">
                         <span>ผลการประเมิน</span>
                         {!loading && details && (
                             <Badge variant={details.status === 'completed' ? 'default' : 'secondary'}
@@ -224,8 +224,8 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
                                                 </div>
                                                 <div className="text-right">
                                                     <span className={`text-lg font-bold ${item.score >= 8 ? 'text-emerald-400' :
-                                                            item.score >= 5 ? 'text-blue-400' :
-                                                                'text-amber-400'
+                                                        item.score >= 5 ? 'text-blue-400' :
+                                                            'text-amber-400'
                                                         }`}>{item.score}</span>
                                                     <span className="text-xs text-slate-500 ml-1">/ 10</span>
                                                 </div>
