@@ -17,6 +17,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { Skeleton } from "@/components/ui/skeleton"
 
 type Criterion = {
     id: string
@@ -48,6 +49,11 @@ export default function CriteriaPage() {
             if (data) setCriteria(data)
         } catch (error) {
             console.error('Error fetching criteria:', error)
+            toast({
+                variant: "destructive",
+                title: "ไม่สามารถโหลดเกณฑ์",
+                description: "เกิดข้อผิดพลาดในการดึงข้อมูล",
+            })
         } finally {
             setLoading(false)
         }
@@ -187,7 +193,11 @@ export default function CriteriaPage() {
                 <div className="space-y-4">
                     <h3 className="text-lg font-semibold">เกณฑ์ที่มีอยู่</h3>
                     {loading ? (
-                        <div className="flex justify-center p-8"><Loader2 className="h-6 w-6 animate-spin text-blue-500" /></div>
+                        <div className="space-y-4">
+                            {[1, 2, 3].map((i) => (
+                                <Skeleton key={i} className="h-[76px] w-full rounded-lg bg-slate-900/30" />
+                            ))}
+                        </div>
                     ) : criteria.length === 0 ? (
                         <p className="text-slate-500 italic">ยังไม่มีเกณฑ์</p>
                     ) : (

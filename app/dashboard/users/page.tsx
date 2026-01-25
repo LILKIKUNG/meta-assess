@@ -78,6 +78,11 @@ export default function UsersPage() {
             } catch (error: any) {
                 console.error('Error fetching users:', error)
                 setError(error.message || "Failed to load employees.")
+                toast({
+                    variant: "destructive",
+                    title: "ไม่สามารถโหลดข้อมูลพนักงาน",
+                    description: "การเชื่อมต่อมีปัญหา กรุณาลองใหม่",
+                })
             } finally {
                 setLoading(false)
             }

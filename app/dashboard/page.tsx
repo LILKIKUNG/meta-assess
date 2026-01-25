@@ -8,8 +8,10 @@ import { BarChart3, AlertCircle, CheckCircle2, Trophy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DashboardSkeleton } from "@/components/skeletons/DashboardSkeleton"
 import { ErrorState } from "@/components/ui/error-state"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function DashboardPage() {
+    const { toast } = useToast()
     const [chartData, setChartData] = useState<{ name: string, score: number }[]>([])
     const [myAvgScore, setMyAvgScore] = useState(0)
     const [avgScore, setAvgScore] = useState(0)
@@ -157,6 +159,11 @@ export default function DashboardPage() {
             } catch (error: any) {
                 console.error("Error fetching dashboard data:", error)
                 setError(error.message || "Failed to load dashboard data.")
+                toast({
+                    variant: "destructive",
+                    title: "ไม่สามารถโหลดข้อมูลแดชบอร์ดได้",
+                    description: "การเชื่อมต่อมีปัญหา กรุณารีเฟรชหน้าจอ",
+                })
             } finally {
                 setIsLoading(false)
             }

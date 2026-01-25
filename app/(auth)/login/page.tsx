@@ -10,10 +10,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { registerStaff } from "@/app/actions/register"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function LoginPage() {
     const supabase = createClient()
     const router = useRouter()
+    const { toast } = useToast()
 
     // Mode State: 'login' | 'register'
     const [mode, setMode] = useState<'login' | 'register'>('login')
@@ -22,8 +24,6 @@ export default function LoginPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isLoading, setIsLoading] = useState(false)
-    const [shake, setShake] = useState(false)
-    const [showSuccess, setShowSuccess] = useState(false)
     const [userName, setUserName] = useState("")
 
     // Register State
@@ -32,7 +32,6 @@ export default function LoginPage() {
     const [regPassword, setRegPassword] = useState("")
     const [isRegistering, setIsRegistering] = useState(false)
     const [regError, setRegError] = useState<string | null>(null)
-    const [regSuccess, setRegSuccess] = useState(false)
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -46,20 +45,32 @@ export default function LoginPage() {
 
             if (error) {
                 console.error("Login error:", error.message)
-                setShake(true)
-                setTimeout(() => setShake(false), 500)
+                toast({
+                    variant: "destructive",
+                    title: "ไม่สามารถเข้าสู่ระบบได้",
+                    description: "อีเมลหรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่",
+                })
                 return
             }
 
             if (data.user) {
                 setUserName(data.user.email?.split('@')[0] || 'User')
-                setShowSuccess(true)
+                toast({
+                    className: "bg-emerald-500 text-white border-emerald-600",
+                    title: "เข้าสู่ระบบสำเร็จ",
+                    description: `ยินดีต้อนรับคุณ ${data.user.email?.split('@')[0]}`,
+                })
                 setTimeout(() => {
                     window.location.href = '/dashboard'
-                }, 1500)
+                }, 1000)
             }
         } catch (error) {
             console.error("Unexpected error:", error)
+            toast({
+                variant: "destructive",
+                title: "เกิดข้อผิดพลาด",
+                description: "โปรดลองใหม่อีกครั้งในภายหลัง",
+            })
         } finally {
             setIsLoading(false)
         }
@@ -80,18 +91,32 @@ export default function LoginPage() {
 
             if (result?.error) {
                 setRegError(result.error)
+                toast({
+                    variant: "destructive",
+                    title: "ลงทะเบียนไม่สำเร็จ",
+                    description: result.error,
+                })
             } else if (result?.success) {
-                setRegSuccess(true)
+                toast({
+                    className: "bg-emerald-500 text-white border-emerald-600",
+                    title: "ลงทะเบียนสำเร็จ",
+                    description: "กรุณาเข้าสู่ระบบด้วยบัญชีใหม่ของคุณ",
+                })
                 setRegError(null)
                 // Auto switch to login after delay
                 setTimeout(() => {
                     setMode('login')
                     setEmail(regEmail) // Pre-fill login email
-                    setRegSuccess(false)
+                    setPassword("")
                 }, 2000)
             }
         } catch (error) {
             setRegError("เกิดข้อผิดพลาดที่ไม่คาดคิด")
+            toast({
+                variant: "destructive",
+                title: "ข้อผิดพลาด",
+                description: "เกิดปัญหาในการเชื่อมต่อระบบ",
+            })
         } finally {
             setIsRegistering(false)
         }
@@ -103,22 +128,7 @@ export default function LoginPage() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none opacity-30" />
             <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none opacity-30" />
 
-            {/* Success Toast */}
-            {showSuccess && (
-                <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-emerald-500 text-white px-6 py-3 rounded-full shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300 z-50">
-                    <CheckCircle2 className="h-5 w-5" />
-                    <span className="font-medium">ยินดีต้อนรับคุณ {userName}!</span>
-                </div>
-            )}
-
-            {regSuccess && mode === 'register' && (
-                <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-emerald-500 text-white px-6 py-3 rounded-full shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300 z-50">
-                    <CheckCircle2 className="h-5 w-5" />
-                    <span className="font-medium">ลงทะเบียนสำเร็จ! กรุณาเข้าสู่ระบบ</span>
-                </div>
-            )}
-
-            <Card className={`w-full max-w-sm border-slate-800 bg-slate-900/60 text-slate-50 backdrop-blur-md shadow-2xl relative z-10 duration-200 ${shake ? 'animate-shake border-red-500/50' : ''}`}>
+            <Card className="w-full max-w-sm border-slate-800 bg-slate-900/60 text-slate-50 backdrop-blur-md shadow-2xl relative z-10 duration-200">
                 <CardHeader className="space-y-1 text-center pb-2">
                     <div className="flex justify-center mb-6">
                         <div className="group rounded-xl bg-slate-950/50 p-3 ring-1 ring-white/10 shadow-lg transition-transform hover:scale-105">

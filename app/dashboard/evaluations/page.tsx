@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import { createClient } from "@/lib/supabase"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useToast } from "@/components/ui/use-toast"
 import { Loader2, FileText, Calendar } from "lucide-react"
 
 type Assessment = {
@@ -15,9 +17,14 @@ type Assessment = {
     // Using simplified types for now, will refine after viewing query result if needed.
 }
 
+import { EvaluationDetailModal } from "@/components/evaluation-detail-modal"
+
 export default function EvaluationsPage() {
     const [assessments, setAssessments] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
+    const { toast } = useToast()
+    const [selectedAssessmentId, setSelectedAssessmentId] = useState<string | null>(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     useEffect(() => {
         async function fetchAssessments() {
@@ -51,6 +58,11 @@ export default function EvaluationsPage() {
                 }
             } catch (error) {
                 console.error("Error fetching evaluations:", error)
+                toast({
+                    variant: "destructive",
+                    title: "ไม่สามารถโหลดข้อมูลได้",
+                    description: "เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่",
+                })
             } finally {
                 setLoading(false)
             }
@@ -58,7 +70,38 @@ export default function EvaluationsPage() {
         fetchAssessments()
     }, [])
 
-    if (loading) return <div className="p-10 text-white flex justify-center"><Loader2 className="animate-spin" /></div>
+    const handleCardClick = (id: string) => {
+        setSelectedAssessmentId(id)
+        setIsModalOpen(true)
+    }
+
+    if (loading) {
+        return (
+            <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-white">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight mb-2">ประวัติการประเมิน</h1>
+                    <p className="text-slate-400">ดูประวัติการประเมินทั้งหมด</p>
+                </div>
+                <div className="grid gap-4">
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="border border-slate-800 bg-slate-900/50 rounded-lg p-6 flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <Skeleton className="h-10 w-10 rounded-full bg-slate-800" />
+                                <div className="space-y-2">
+                                    <Skeleton className="h-5 w-48 bg-slate-800" />
+                                    <Skeleton className="h-4 w-32 bg-slate-800" />
+                                </div>
+                            </div>
+                            <div className="hidden md:flex flex-col items-end gap-2">
+                                <Skeleton className="h-4 w-24 bg-slate-800" />
+                                <Skeleton className="h-5 w-20 rounded-full bg-slate-800" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-white">
@@ -69,7 +112,11 @@ export default function EvaluationsPage() {
 
             <div className="grid gap-4">
                 {assessments.map((assessment) => (
-                    <Card key={assessment.id} className="border-slate-800 bg-slate-900/50 text-white">
+                    <Card
+                        key={assessment.id}
+                        onClick={() => handleCardClick(assessment.id)}
+                        className="border-slate-800 bg-slate-900/50 text-white cursor-pointer hover:bg-slate-800/80 transition-all active:scale-[0.99]"
+                    >
                         <CardContent className="flex items-center justify-between p-6">
                             <div className="flex items-center gap-4">
                                 <div className="h-10 w-10 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500">
@@ -109,6 +156,12 @@ export default function EvaluationsPage() {
                     </div>
                 )}
             </div>
+
+            <EvaluationDetailModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                assessmentId={selectedAssessmentId}
+            />
         </div>
     )
 }

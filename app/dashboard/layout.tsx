@@ -2,12 +2,15 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Activity, LayoutDashboard, Database, Users, LogOut, ClipboardList } from "lucide-react"
+import { Activity, LayoutDashboard, Database, Users, LogOut, ClipboardList, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { NavItems } from "./nav-items"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function DashboardLayout({
     children,
@@ -16,6 +19,7 @@ export default function DashboardLayout({
 }) {
     const pathname = usePathname()
     const router = useRouter()
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
     const [profile, setProfile] = useState<{ full_name: string, role: string } | null>(null)
 
@@ -78,25 +82,12 @@ export default function DashboardLayout({
                     </div>
                 </div>
 
-                <div className="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
-                    {navItems.filter(item => {
-                        if (item.href.includes('admin') && profile?.role !== 'admin') return false
-                        return true
-                    }).map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={cn(
-                                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                                pathname === item.href
-                                    ? "bg-blue-600/10 text-blue-500"
-                                    : "text-slate-400 hover:text-white hover:bg-slate-900"
-                            )}
-                        >
-                            <item.icon className="h-4 w-4" />
-                            {item.title}
-                        </Link>
-                    ))}
+                <div className="flex-1 py-6 px-4 overflow-y-auto">
+                    <NavItems
+                        items={navItems}
+                        pathname={pathname}
+                        role={profile?.role}
+                    />
                 </div>
 
                 <div className="p-4 border-t border-slate-800">
@@ -105,8 +96,16 @@ export default function DashboardLayout({
                             {profile?.full_name?.charAt(0) || 'U'}
                         </div>
                         <div className="overflow-hidden">
-                            <p className="text-sm font-medium text-white truncate">{profile?.full_name || 'Loading...'}</p>
-                            <p className="text-xs text-slate-500 truncate capitalize">{profile?.role || ''}</p>
+                            {profile ? (
+                                <p className="text-sm font-medium text-white truncate">{profile.full_name}</p>
+                            ) : (
+                                <Skeleton className="h-4 w-32 mb-1" />
+                            )}
+                            {profile ? (
+                                <p className="text-xs text-slate-500 truncate capitalize">{profile.role}</p>
+                            ) : (
+                                <Skeleton className="h-3 w-16" />
+                            )}
                         </div>
                     </div>
                     <Button
@@ -123,7 +122,66 @@ export default function DashboardLayout({
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-w-0 bg-slate-950">
                 {/* Mobile Header */}
-                <header className="h-16 border-b border-slate-800 flex items-center px-6 md:hidden bg-slate-950">
+                <header className="h-16 border-b border-slate-800 flex items-center px-6 md:hidden bg-slate-950 gap-4">
+                    <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                        <SheetTrigger asChild>
+                            <Button variant="ghost" size="icon" className="shrink-0 text-slate-400 hover:text-white">
+                                <Menu className="h-5 w-5" />
+                                <span className="sr-only">Open menu</span>
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="left" className="w-72 bg-slate-950 border-r-slate-800 p-0 flex flex-col text-white">
+                            <div className="h-16 flex items-center px-6 border-b border-slate-800">
+                                <div className="flex items-center gap-2.5 font-bold text-lg text-white">
+                                    <div className="rounded-lg bg-blue-600 p-1.5 text-white">
+                                        <Activity className="h-4 w-4" />
+                                    </div>
+                                    <span>ระบบประเมิน</span>
+                                </div>
+                            </div>
+
+                            <div className="flex-1 py-6 px-4 overflow-y-auto">
+                                <NavItems
+                                    items={navItems}
+                                    pathname={pathname}
+                                    role={profile?.role}
+                                    onNavigate={() => setIsMobileMenuOpen(false)}
+                                />
+                            </div>
+
+                            <div className="p-4 border-t border-slate-800">
+                                <div className="flex items-center gap-3 px-3 py-3 rounded-lg border border-slate-800 bg-slate-900/50 mb-4">
+                                    <div className="h-8 w-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 font-bold text-xs">
+                                        {profile?.full_name?.charAt(0) || 'U'}
+                                    </div>
+                                    <div className="overflow-hidden">
+                                        {profile ? (
+                                            <p className="text-sm font-medium text-white truncate">{profile.full_name}</p>
+                                        ) : (
+                                            <Skeleton className="h-4 w-32 mb-1" />
+                                        )}
+                                        {profile ? (
+                                            <p className="text-xs text-slate-500 truncate capitalize">{profile.role}</p>
+                                        ) : (
+                                            <Skeleton className="h-3 w-16" />
+                                        )}
+                                    </div>
+                                </div>
+                                <Button
+                                    variant="ghost"
+                                    className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-950/20 gap-2"
+                                    onClick={() => {
+                                        setIsMobileMenuOpen(false)
+                                        handleLogout()
+                                    }}
+                                >
+                                    <LogOut className="h-4 w-4" />
+                                    ออกจากระบบ
+                                </Button>
+                            </div>
+                        </SheetContent>
+                    </Sheet>
+
                     <div className="flex items-center gap-2.5 font-bold text-lg text-white">
                         <div className="rounded-lg bg-blue-600 p-1.5 text-white">
                             <Activity className="h-4 w-4" />
