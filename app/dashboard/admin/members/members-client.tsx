@@ -168,7 +168,7 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
                     />
                 </div>
                 <Button onClick={() => handleOpenSheet()} className="bg-blue-600 hover:bg-blue-500 text-white gap-2">
-                    <Plus className="h-4 w-4" /> เพิ่มสมาชิก
+                    <Plus className="h-4 w-4" /> เพิ่มบุคลากร
                 </Button>
             </div>
 
@@ -181,7 +181,7 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
                             <TableHead className="text-slate-400">แผนก</TableHead>
                             <TableHead className="text-right text-slate-400">การกระทำ</TableHead>
                         </TableRow>
-                    </TableHeader>  
+                    </TableHeader>
                     <TableBody>
                         {filteredProfiles.map((user) => (
                             <TableRow key={user.id} className="border-slate-800 hover:bg-slate-900/30">
@@ -213,9 +213,9 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetContent className="bg-slate-950 border-l-slate-800 text-white">
                     <SheetHeader>
-                        <SheetTitle className="text-white">{editingUser ? 'แก้ไขสมาชิก' : 'เพิ่มสมาชิกใหม่'}</SheetTitle>
+                        <SheetTitle className="text-white">{editingUser ? '' : 'เพิ่มบุคลากร'}</SheetTitle>
                         <SheetDescription className="text-slate-400">
-                            {editingUser ? 'แก้ไขข้อมูลสมาชิก' : 'สร้างบัญชีสมาชิก'}
+                            {editingUser ? 'แก้ไขข้อมูลสมาชิก' : 'สร้างบัญชีบุคลากร'}
                         </SheetDescription>
                     </SheetHeader>
                     <form onSubmit={handleSubmit} className="space-y-6 mt-6">
@@ -280,7 +280,7 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
                             <Button type="button" variant="ghost" onClick={() => setIsOpen(false)} className="text-slate-400">ยกเลิก</Button>
                             <Button type="submit" disabled={isLoading} className="bg-blue-600 hover:bg-blue-500">
                                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                {editingUser ? 'เปลี่ยนแปลง' : 'เพิ่มสมาชิก'}
+                                {editingUser ? 'เปลี่ยนแปลง' : 'เพิ่มบุคลากร'}
                             </Button>
                         </div>
                     </form>

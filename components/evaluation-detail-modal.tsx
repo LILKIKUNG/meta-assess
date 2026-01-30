@@ -154,20 +154,29 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
 
     // Helper for Progress Color
     const getProgressColor = (score: number) => {
-        if (score >= 8) return "bg-emerald-500" // Excellent
-        if (score >= 5) return "bg-blue-500"    // Good
+        if (score >= 16) return "bg-emerald-500" // Excellent (>= 80%)
+        if (score >= 10) return "bg-blue-500"    // Good (>= 50%)
         return "bg-amber-500"                   // Warning
         // Implementation note: Shadcn Progress component usually uses a single indicator color class. 
         // We might need to override it via className or use inline styles if the component structure is strict.
         // Assuming standard tailwind Override works on the indicator if we pass strict class.
     }
 
+    const totalScore = scores.reduce((sum, item) => sum + item.score, 0)
+
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
             <DialogContent className="sm:max-w-2xl bg-slate-950 border-slate-800 text-white max-h-[85vh] p-0 gap-0 flex flex-col overflow-hidden">
                 <DialogHeader className="p-6 pb-4 border-b border-slate-800/50 bg-slate-950 pr-12">
                     <DialogTitle className="text-2xl font-bold flex items-center justify-between">
-                        <span>ผลการประเมิน</span>
+                        <div className="flex items-center gap-3">
+                            <span>ผลการประเมิน</span>
+                            {!loading && scores.length > 0 && (
+                                <span className="text-base font-normal text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                                    คะแนนรวม: {totalScore} / 100
+                                </span>
+                            )}
+                        </div>
                         {!loading && details && (
                             <Badge variant={details.status === 'completed' ? 'default' : 'secondary'}
                                 className={details.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20' : ''}>
@@ -223,17 +232,17 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
                                                     {item.criteria_desc && <p className="text-xs text-slate-500">{item.criteria_desc}</p>}
                                                 </div>
                                                 <div className="text-right">
-                                                    <span className={`text-lg font-bold ${item.score >= 8 ? 'text-emerald-400' :
-                                                        item.score >= 5 ? 'text-blue-400' :
+                                                    <span className={`text-lg font-bold ${item.score >= 16 ? 'text-emerald-400' :
+                                                        item.score >= 10 ? 'text-blue-400' :
                                                             'text-amber-400'
                                                         }`}>{item.score}</span>
-                                                    <span className="text-xs text-slate-500 ml-1">/ 10</span>
+                                                    <span className="text-xs text-slate-500 ml-1">/ 20</span>
                                                 </div>
                                             </div>
                                             <div className="relative h-2 w-full overflow-hidden rounded-full bg-slate-800">
                                                 <div
                                                     className={`h-full transition-all duration-500 ease-in-out ${getProgressColor(item.score)}`}
-                                                    style={{ width: `${(item.score / 10) * 100}%` }}
+                                                    style={{ width: `${(item.score / 20) * 100}%` }}
                                                 />
                                             </div>
                                         </div>

@@ -97,13 +97,10 @@ export default function DashboardPage() {
                         assessments.forEach(a => {
                             if (!a.scores || a.scores.length === 0) return
 
-                            // Calculate Weighted Average
-                            // Formula: Sum(score * (weight/100))
-                            // Note: This assumes weights sum to 100.
+                            // Calculate Total Score (Sum of 5 items x 20 points = 100 max)
+                            // No longer using weights.
                             const assessmentAvg = a.scores.reduce((acc, curr) => {
-                                // @ts-ignore
-                                const weight = curr.criteria?.weight || 0
-                                return acc + (curr.score * (weight / 100))
+                                return acc + curr.score
                             }, 0)
 
                             if (a.scores.length > 0) {
@@ -225,7 +222,7 @@ export default function DashboardPage() {
                             </CardHeader>
                             <CardContent>
                                 <div className="text-2xl font-bold text-white">{avgScore.toFixed(1)}</div>
-                                <p className="text-xs text-slate-500 mt-1">ค่าเฉลี่ยในองค์กร</p>
+                                <p className="text-xs text-slate-500 mt-1">ค่าเฉลี่ยในวิทยาลัย</p>
                             </CardContent>
                         </Card>
                     </div>

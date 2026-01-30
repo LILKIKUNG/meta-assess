@@ -30,7 +30,6 @@ export default function CriteriaPage() {
     const [criteria, setCriteria] = useState<Criterion[]>([])
     const [loading, setLoading] = useState(true)
     const [newTitle, setNewTitle] = useState("")
-    const [newWeight, setNewWeight] = useState("")
     const [newDesc, setNewDesc] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { toast } = useToast()
@@ -65,7 +64,7 @@ export default function CriteriaPage() {
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!newTitle || !newWeight) return
+        if (!newTitle) return
 
         try {
             const supabase = createClient()
@@ -75,7 +74,7 @@ export default function CriteriaPage() {
                 .insert([
                     {
                         title: newTitle,
-                        weight: parseInt(newWeight),
+                        weight: 0,
                         description: newDesc
                     }
                 ])
@@ -84,7 +83,6 @@ export default function CriteriaPage() {
             if (error) throw error
 
             setNewTitle("")
-            setNewWeight("")
             setNewDesc("")
             fetchCriteria() // Refresh list
             toast({
@@ -160,16 +158,6 @@ export default function CriteriaPage() {
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">น้ำหนัก (%)</label>
-                                <Input
-                                    type="number"
-                                    placeholder=""
-                                    value={newWeight}
-                                    onChange={(e) => setNewWeight(e.target.value)}
-                                    className="bg-slate-950 border-slate-700 text-white placeholder:text-slate-600 focus-visible:ring-blue-600"
-                                />
-                            </div>
 
                             <div className="space-y-2">
                                 <label className="text-sm font-medium">คำอธิบาย</label>
@@ -206,9 +194,6 @@ export default function CriteriaPage() {
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <h4 className="font-medium text-white">{item.title}</h4>
-                                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 font-mono">
-                                            {item.weight}%
-                                        </span>
                                     </div>
                                     {item.description && <p className="text-sm text-slate-500 mt-1">{item.description}</p>}
                                 </div>

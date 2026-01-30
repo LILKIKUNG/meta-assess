@@ -129,13 +129,13 @@ export default function UsersPage() {
         <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-white">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight mb-2">รายชื่อพนักงาน</h1>
-                    <p className="text-slate-400">จัดการและดูข้อมูลพนักงาน</p>
+                    <h1 className="text-3xl font-bold tracking-tight mb-2">รายชื่อบุคลากร</h1>
+                    <p className="text-slate-400">จัดการและดูข้อมูลบุคลากร</p>
                 </div>
                 <div className="relative w-full md:w-64">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-500" />
                     <Input
-                        placeholder="ค้นหาพนักงาน..."
+                        placeholder="ค้นหาบุคลากร..."
                         className="pl-9 bg-slate-900 border-slate-700 text-white placeholder:text-slate-500 focus-visible:ring-blue-600"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}

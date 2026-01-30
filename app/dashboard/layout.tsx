@@ -53,7 +53,7 @@ export default function DashboardLayout({
             icon: Database,
         },
         {
-            title: "จัดการสมาชิก",
+            title: "จัดการบุคลากร",
             href: "/dashboard/admin/members",
             icon: Users,
         },

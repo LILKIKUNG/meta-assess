@@ -60,10 +60,11 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
                 if (criteriaError) throw criteriaError
                 if (criteriaData) {
                     setCriteria(criteriaData)
-                    // Initialize scores with 5 (midpoint) or 0
+                    setCriteria(criteriaData)
+                    // Initialize scores with 10 (midpoint of 20)
                     const initialScores: Record<string, number> = {}
                     criteriaData.forEach(c => {
-                        initialScores[c.id] = 5
+                        initialScores[c.id] = 10
                     })
                     setScores(initialScores)
                 }
@@ -128,7 +129,7 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
 
             toast({
                 title: "ส่งแบบประเมินสำเร็จ",
-                description: "ข้อมูลสมาชิกถูกบันทึกเรียบร้อยแล้ว",
+                description: "ข้อมูลบุคลากรถูกบันทึกเรียบร้อยแล้ว",
                 className: "bg-emerald-500 text-white border-emerald-600"
             })
 
@@ -187,7 +188,7 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
             </div>
 
             <div>
-                <h1 className="text-3xl font-bold tracking-tight mb-2">ประเมินพนักงาน</h1>
+                <h1 className="text-3xl font-bold tracking-tight mb-2">ประเมินบุคลากร</h1>
                 <p className="text-slate-400">
                     ประเมินคุณ <span className="text-blue-400 font-semibold">{subject.full_name}</span> ({subject.department})
                 </p>
@@ -199,18 +200,17 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
                         <CardHeader className="pb-2">
                             <div className="flex justify-between items-center">
                                 <CardTitle className="text-lg">{c.title}</CardTitle>
-                                <span className="text-sm font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">น้ำหนัก: {c.weight}%</span>
                             </div>
                             <CardDescription>{c.description}</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
                                 <div className="flex justify-between text-sm font-medium">
-                                    <span>คะแนน: {scores[c.id]} / 10</span>
+                                    <span>คะแนน: {scores[c.id]} / 20</span>
                                 </div>
                                 <Slider
-                                    defaultValue={[5]}
-                                    max={10}
+                                    defaultValue={[10]}
+                                    max={20}
                                     step={1}
                                     value={[scores[c.id]]}
                                     onValueChange={(val: number[]) => handleScoreChange(c.id, val)}
@@ -218,7 +218,7 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
                                 />
                                 <div className="flex justify-between text-xs text-slate-500 px-1">
                                     <span>แย่ (0)</span>
-                                    <span>ดีมาก (10)</span>
+                                    <span>ดีมาก (20)</span>
                                 </div>
                             </div>
                         </CardContent>
