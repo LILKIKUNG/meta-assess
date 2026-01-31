@@ -182,10 +182,10 @@ export default function DashboardPage() {
                 <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <h1 className="text-3xl font-bold tracking-tight text-white mb-2">ภาพรวม</h1>
-                            <p className="text-slate-400">
-                                คุณ, <span className="text-blue-400 font-semibold">{profile?.full_name || 'Admin User'}</span>
-                                <span className="ml-2 px-2 py-0.5 rounded-full bg-slate-800 text-xs text-slate-300 border border-slate-700">
+                            <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">ภาพรวม</h1>
+                            <p className="text-slate-500">
+                                คุณ, <span className="text-red-600 font-semibold">{profile?.full_name || 'Admin User'}</span>
+                                <span className="ml-2 px-2 py-0.5 rounded-full bg-slate-100 text-xs text-slate-600 border border-slate-200">
                                     {profile?.role || 'admin'}
                                 </span>
                             </p>
@@ -193,83 +193,83 @@ export default function DashboardPage() {
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-3">
-                        <Card className="shadow-none border-slate-800 bg-slate-900/50 text-white">
+                        <Card className="shadow-none border-slate-200 bg-white text-slate-900">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium text-slate-400">การประเมินผลรวม</CardTitle>
-                                <BarChart3 className="h-4 w-4 text-blue-500" />
+                                <CardTitle className="text-sm font-medium text-slate-500">การประเมินผลรวม</CardTitle>
+                                <BarChart3 className="h-4 w-4 text-red-500" />
                             </CardHeader>
                             <CardContent>
-                                <div className="text-2xl font-bold text-white">{totalEvals}</div>
+                                <div className="text-2xl font-bold text-slate-900">{totalEvals}</div>
                                 <p className="text-xs text-slate-500 mt-1">การประเมินเสร็จสมบูรณ์</p>
                             </CardContent>
                         </Card>
 
-                        <Card className="shadow-none border-slate-800 bg-slate-900/50 text-white">
+                        <Card className="shadow-none border-slate-200 bg-white text-slate-900">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium text-slate-400">คะแนนเฉลี่ยของคุณ</CardTitle>
+                                <CardTitle className="text-sm font-medium text-slate-500">คะแนนเฉลี่ยของคุณ</CardTitle>
                                 <Trophy className="h-4 w-4 text-amber-500" />
                             </CardHeader>
                             <CardContent>
-                                <div className="text-2xl font-bold text-white">{myAvgScore > 0 ? myAvgScore.toFixed(1) : "0.0"}</div>
+                                <div className="text-2xl font-bold text-slate-900">{myAvgScore > 0 ? myAvgScore.toFixed(1) : "0.0"}</div>
                                 <p className="text-xs text-slate-500 mt-1">จากผลการปฏิบัติงานทั้งหมด</p>
                             </CardContent>
                         </Card>
 
-                        <Card className="shadow-none border-slate-800 bg-slate-900/50 text-white">
+                        <Card className="shadow-none border-slate-200 bg-white text-slate-900">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium text-slate-400">คะแนนเฉลี่ยรวม</CardTitle>
+                                <CardTitle className="text-sm font-medium text-slate-500">คะแนนเฉลี่ยรวม</CardTitle>
                                 <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                             </CardHeader>
                             <CardContent>
-                                <div className="text-2xl font-bold text-white">{avgScore.toFixed(1)}</div>
+                                <div className="text-2xl font-bold text-slate-900">{avgScore.toFixed(1)}</div>
                                 <p className="text-xs text-slate-500 mt-1">ค่าเฉลี่ยในวิทยาลัย</p>
                             </CardContent>
                         </Card>
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                        <Card className="col-span-4 shadow-none border-slate-800 bg-slate-900/50 text-white">
+                        <Card className="col-span-4 shadow-none border-slate-200 bg-white text-slate-900">
                             <CardHeader>
-                                <CardTitle className="text-white">แนวโน้ม</CardTitle>
-                                <CardDescription className="text-slate-400">ค่าเฉลี่ยของแต่ละเดือน</CardDescription>
+                                <CardTitle className="text-slate-900">แนวโน้ม</CardTitle>
+                                <CardDescription className="text-slate-500">ค่าเฉลี่ยของแต่ละเดือน</CardDescription>
                             </CardHeader>
                             <CardContent className="pl-2">
                                 <div className="h-[300px] w-full">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <BarChart data={chartData}>
-                                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                                            <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                                            <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
+                                            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                                            <XAxis dataKey="name" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
+                                            <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
                                             <Tooltip
-                                                contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px', color: '#fff' }}
-                                                itemStyle={{ color: '#fff' }}
-                                                cursor={{ fill: 'transparent' }}
+                                                contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px', color: '#0f172a' }}
+                                                itemStyle={{ color: '#0f172a' }}
+                                                cursor={{ fill: '#f1f5f9' }}
                                             />
-                                            <Bar dataKey="score" fill="#3b82f6" radius={[4, 4, 0, 0]} barSize={40} />
+                                            <Bar dataKey="score" fill="#dc2626" radius={[4, 4, 0, 0]} barSize={40} />
                                         </BarChart>
                                     </ResponsiveContainer>
                                 </div>
                             </CardContent>
                         </Card>
 
-                        <Card className="col-span-3 shadow-none border-slate-800 bg-slate-900/50 text-white">
+                        <Card className="col-span-3 shadow-none border-slate-200 bg-white text-slate-900">
                             <CardHeader>
-                                <CardTitle className="text-white">ผู้ที่ได้รับคะแนนสูงสุด</CardTitle>
-                                <CardDescription className="text-slate-400">ลำดับคะแนน</CardDescription>
+                                <CardTitle className="text-slate-900">ผู้ที่ได้รับคะแนนสูงสุด</CardTitle>
+                                <CardDescription className="text-slate-500">ลำดับคะแนน</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-6">
                                     {topPerformers.length > 0 ? (
                                         topPerformers.map((p, i) => (
                                             <div key={i} className="flex items-center">
-                                                <div className="h-9 w-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-xs text-slate-400">
+                                                <div className="h-9 w-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-500">
                                                     {p.name.charAt(0)}
                                                 </div>
                                                 <div className="ml-4 space-y-1">
-                                                    <p className="text-sm font-medium leading-none text-white">{p.name}</p>
-                                                    <p className="text-xs text-slate-400">{p.dept}</p>
+                                                    <p className="text-sm font-medium leading-none text-slate-900">{p.name}</p>
+                                                    <p className="text-xs text-slate-500">{p.dept}</p>
                                                 </div>
-                                                <div className="ml-auto font-bold text-sm text-emerald-400">{p.score.toFixed(1)}</div>
+                                                <div className="ml-auto font-bold text-sm text-emerald-600">{p.score.toFixed(1)}</div>
                                             </div>
                                         ))
                                     ) : (

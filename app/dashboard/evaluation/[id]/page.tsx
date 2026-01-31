@@ -151,25 +151,25 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
 
     if (loading) {
         return (
-            <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-8 text-white">
+            <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-8 text-slate-900">
                 <div className="flex items-center gap-4 mb-4">
-                    <Skeleton className="h-10 w-24 bg-slate-800" />
+                    <Skeleton className="h-10 w-24" />
                 </div>
                 <div>
-                    <Skeleton className="h-9 w-48 mb-2 bg-slate-800" />
-                    <Skeleton className="h-5 w-64 bg-slate-800" />
+                    <Skeleton className="h-9 w-48 mb-2" />
+                    <Skeleton className="h-5 w-64" />
                 </div>
                 <div className="space-y-6">
                     {[1, 2, 3].map((i) => (
-                        <div key={i} className="rounded-lg border border-slate-800 bg-slate-900/50 p-6 space-y-4">
+                        <div key={i} className="rounded-lg border border-slate-200 bg-white p-6 space-y-4">
                             <div className="space-y-2">
                                 <div className="flex justify-between">
-                                    <Skeleton className="h-6 w-32 bg-slate-800" />
-                                    <Skeleton className="h-6 w-16 bg-slate-800" />
+                                    <Skeleton className="h-6 w-32" />
+                                    <Skeleton className="h-6 w-16" />
                                 </div>
-                                <Skeleton className="h-4 w-full bg-slate-800" />
+                                <Skeleton className="h-4 w-full" />
                             </div>
-                            <Skeleton className="h-10 w-full bg-slate-800" />
+                            <Skeleton className="h-10 w-full" />
                         </div>
                     ))}
                 </div>
@@ -177,31 +177,31 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
         )
     }
     if (error) return <div className="p-10 text-red-500">Error: {error}</div>
-    if (!subject) return <div className="p-10 text-white">Subject not found.</div>
+    if (!subject) return <div className="p-10 text-slate-900">Subject not found.</div>
 
     return (
-        <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-8 text-white">
+        <div className="p-6 md:p-10 max-w-4xl mx-auto space-y-8 text-slate-900">
             <div className="flex items-center gap-4 mb-4">
-                <Button variant="ghost" className="p-0 text-slate-400 hover:text-white" onClick={() => router.back()}>
+                <Button variant="ghost" className="p-0 text-slate-500 hover:text-slate-900" onClick={() => router.back()}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> กลับ
                 </Button>
             </div>
 
             <div>
                 <h1 className="text-3xl font-bold tracking-tight mb-2">ประเมินบุคลากร</h1>
-                <p className="text-slate-400">
-                    ประเมินคุณ <span className="text-blue-400 font-semibold">{subject.full_name}</span> ({subject.department})
+                <p className="text-slate-500">
+                    ประเมินคุณ <span className="text-red-600 font-semibold">{subject.full_name}</span> ({subject.department})
                 </p>
             </div>
 
             <div className="space-y-6">
                 {criteria.map((c) => (
-                    <Card key={c.id} className="border-slate-800 bg-slate-900/50 text-white">
+                    <Card key={c.id} className="border-slate-200 bg-white text-slate-900">
                         <CardHeader className="pb-2">
                             <div className="flex justify-between items-center">
                                 <CardTitle className="text-lg">{c.title}</CardTitle>
                             </div>
-                            <CardDescription>{c.description}</CardDescription>
+                            <CardDescription className="text-slate-500">{c.description}</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">
@@ -230,7 +230,7 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
                         size="lg"
                         onClick={handleSubmit}
                         disabled={submitting}
-                        className="bg-blue-600 hover:bg-blue-500 text-white w-full md:w-auto"
+                        className="bg-red-600 hover:bg-red-500 text-white w-full md:w-auto"
                     >
                         {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                         ส่งการประเมิน

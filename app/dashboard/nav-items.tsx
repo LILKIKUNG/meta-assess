@@ -31,8 +31,8 @@ export function NavItems({ items, pathname, role, onNavigate }: NavItemsProps) {
                     className={cn(
                         "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                         pathname === item.href
-                            ? "bg-blue-600/10 text-blue-500"
-                            : "text-slate-400 hover:text-white hover:bg-slate-900"
+                            ? "bg-red-50 text-red-600"
+                            : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
                     )}
                 >
                     <item.icon className="h-4 w-4" />

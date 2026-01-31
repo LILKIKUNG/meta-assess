@@ -123,22 +123,22 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-950 p-4 relative overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4 relative overflow-hidden">
             {/* Background gradients */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none opacity-30" />
-            <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none opacity-30" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-red-100 blur-[120px] rounded-full pointer-events-none opacity-60" />
+            <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-orange-100 blur-[100px] rounded-full pointer-events-none opacity-60" />
 
-            <Card className="w-full max-w-sm border-slate-800 bg-slate-900/60 text-slate-50 backdrop-blur-md shadow-2xl relative z-10 duration-200">
+            <Card className="w-full max-w-sm border-slate-200 bg-white text-slate-900 shadow-xl relative z-10 duration-200">
                 <CardHeader className="space-y-1 text-center pb-2">
                     <div className="flex justify-center mb-6">
-                        <div className="group rounded-xl bg-slate-950/50 p-3 ring-1 ring-white/10 shadow-lg transition-transform hover:scale-105">
-                            <MonitorCheck className="h-6 w-6 text-blue-500" />
+                        <div className="group rounded-xl bg-slate-50 p-3 ring-1 ring-slate-200 shadow-sm transition-transform hover:scale-105">
+                            <MonitorCheck className="h-6 w-6 text-red-600" />
                         </div>
                     </div>
-                    <CardTitle className="text-xl font-semibold tracking-tight text-white">
-                        {mode === 'login' ? 'เว็บประเมินบุคลากร' : 'ลงทะเบียนพนักงานใหม่'}
+                    <CardTitle className="text-xl font-semibold tracking-tight text-slate-900">
+                        {mode === 'login' ? 'เว็บประเมินบุคลากร' : 'ลงทะเบียนบุคลากรใหม่'}
                     </CardTitle>
-                    <CardDescription className="text-slate-400 text-xs uppercase tracking-wider font-medium">
+                    <CardDescription className="text-slate-500 text-xs uppercase tracking-wider font-medium">
                         {mode === 'login' ? 'เข้าสู่ระบบของคุณ' : 'สร้างบัญชีเพื่อเริ่มต้นใช้งาน'}
                     </CardDescription>
                 </CardHeader>
@@ -152,7 +152,7 @@ export default function LoginPage() {
                                     placeholder="อีเมล"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="h-11 bg-slate-950/50 border-slate-800 text-white placeholder:text-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 transition-all font-medium"
+                                    className="h-11 bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500 focus-visible:ring-red-600 focus-visible:border-red-600 transition-all font-medium"
                                     required
                                 />
                             </div>
@@ -162,14 +162,14 @@ export default function LoginPage() {
                                     placeholder="รหัสผ่าน"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="h-11 bg-slate-950/50 border-slate-800 text-white placeholder:text-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 transition-all font-medium"
+                                    className="h-11 bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500 focus-visible:ring-red-600 focus-visible:border-red-600 transition-all font-medium"
                                     required
                                 />
                             </div>
                             <Button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full h-11 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold shadow-lg shadow-blue-900/20 border-0"
+                                className="w-full h-11 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-500 hover:to-red-700 text-white font-semibold shadow-lg shadow-red-900/20 border-0"
                             >
                                 {isLoading ? (
                                     <div className="flex items-center justify-center gap-2">
@@ -191,7 +191,7 @@ export default function LoginPage() {
                                     placeholder="ชื่อ-นามสกุล"
                                     value={regName}
                                     onChange={(e) => setRegName(e.target.value)}
-                                    className="h-11 bg-slate-950/50 border-slate-800 text-white placeholder:text-slate-500 focus-visible:ring-indigo-500/50 focus-visible:border-indigo-500/50 transition-all font-medium"
+                                    className="h-11 bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500 focus-visible:ring-red-600 focus-visible:border-red-600 transition-all font-medium"
                                     required
                                 />
                             </div>
@@ -201,7 +201,7 @@ export default function LoginPage() {
                                     placeholder="อีเมลองค์กร"
                                     value={regEmail}
                                     onChange={(e) => setRegEmail(e.target.value)}
-                                    className="h-11 bg-slate-950/50 border-slate-800 text-white placeholder:text-slate-500 focus-visible:ring-indigo-500/50 focus-visible:border-indigo-500/50 transition-all font-medium"
+                                    className="h-11 bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500 focus-visible:ring-red-600 focus-visible:border-red-600 transition-all font-medium"
                                     required
                                 />
                             </div>
@@ -211,7 +211,7 @@ export default function LoginPage() {
                                     placeholder="กำหนดรหัสผ่าน"
                                     value={regPassword}
                                     onChange={(e) => setRegPassword(e.target.value)}
-                                    className="h-11 bg-slate-950/50 border-slate-800 text-white placeholder:text-slate-500 focus-visible:ring-indigo-500/50 focus-visible:border-indigo-500/50 transition-all font-medium"
+                                    className="h-11 bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-500 focus-visible:ring-red-600 focus-visible:border-red-600 transition-all font-medium"
                                     required
                                 />
                             </div>
@@ -225,7 +225,7 @@ export default function LoginPage() {
                             <Button
                                 type="submit"
                                 disabled={isRegistering}
-                                className="w-full h-11 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold shadow-lg shadow-indigo-900/20 border-0"
+                                className="w-full h-11 bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-600 hover:to-slate-800 text-white font-semibold shadow-lg shadow-slate-900/20 border-0"
                             >
                                 {isRegistering ? (
                                     <div className="flex items-center justify-center gap-2">
@@ -241,16 +241,16 @@ export default function LoginPage() {
                         </form>
                     )}
                 </CardContent>
-                <CardFooter className="flex flex-col space-y-4 text-center text-sm text-slate-400 pt-2">
+                <CardFooter className="flex flex-col space-y-4 text-center text-sm text-slate-500 pt-2">
                     <div className="flex items-center gap-2 text-xs">
                         {mode === 'login' ? (
                             <>
                                 ยังไม่มีบัญชี?
                                 <button
                                     onClick={() => setMode('register')}
-                                    className="text-blue-400 hover:text-blue-300 font-medium transition-colors hover:underline"
+                                    className="text-red-600 hover:text-red-500 font-medium transition-colors hover:underline"
                                 >
-                                    ลงทะเบียนพนักงานใหม่
+                                    ลงทะเบียนบุคลากรใหม่
                                 </button>
                             </>
                         ) : (
@@ -258,7 +258,7 @@ export default function LoginPage() {
                                 มีบัญชีอยู่แล้ว?
                                 <button
                                     onClick={() => setMode('login')}
-                                    className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors hover:underline"
+                                    className="text-slate-600 hover:text-slate-500 font-medium transition-colors hover:underline"
                                 >
                                     กลับไปหน้าเข้าสู่ระบบ
                                 </button>
@@ -268,7 +268,7 @@ export default function LoginPage() {
                 </CardFooter>
             </Card>
 
-            <div className="absolute bottom-6 text-center text-xs text-slate-600">
+            <div className="absolute bottom-6 text-center text-xs text-slate-500">
                 &copy; ระบบประเมินทรัพยากรบุคคล 2026 สงวนลิขสิทธิ์ทุกประการ
             </div>
         </div>

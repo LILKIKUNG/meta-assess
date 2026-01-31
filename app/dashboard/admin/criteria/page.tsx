@@ -133,18 +133,18 @@ export default function CriteriaPage() {
     }
 
     return (
-        <div className="p-6 md:p-10 max-w-5xl mx-auto space-y-8 text-white">
+        <div className="p-6 md:p-10 max-w-5xl mx-auto space-y-8 text-slate-900">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight mb-2">เกณฑ์การประเมิน</h1>
-                <p className="text-slate-400"></p>
+                <h1 className="text-3xl font-bold tracking-tight mb-2 text-slate-900">เกณฑ์การประเมิน</h1>
+                <p className="text-slate-500"></p>
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
                 {/* Create Form */}
-                <Card className="border-slate-800 bg-slate-900/50 text-white h-fit">
+                <Card className="border-slate-200 bg-white text-slate-900 h-fit">
                     <CardHeader>
                         <CardTitle>เพิ่มเกณฑ์</CardTitle>
-                        <CardDescription className="text-slate-400">กำหนดตัวชี้วัดใหม่สำหรับการประเมินผล</CardDescription>
+                        <CardDescription className="text-slate-500">กำหนดตัวชี้วัดใหม่สำหรับการประเมินผล</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleCreate} className="space-y-4">
@@ -154,7 +154,7 @@ export default function CriteriaPage() {
                                     placeholder="หัวข้อ"
                                     value={newTitle}
                                     onChange={(e) => setNewTitle(e.target.value)}
-                                    className="bg-slate-950 border-slate-700 text-white placeholder:text-slate-600 focus-visible:ring-blue-600"
+                                    className="bg-white border-slate-200 text-slate-900 placeholder:text-slate-500 focus-visible:ring-red-600"
                                 />
                             </div>
 
@@ -165,11 +165,11 @@ export default function CriteriaPage() {
                                     placeholder=""
                                     value={newDesc}
                                     onChange={(e) => setNewDesc(e.target.value)}
-                                    className="bg-slate-950 border-slate-700 text-white placeholder:text-slate-600 focus-visible:ring-blue-600"
+                                    className="bg-white border-slate-200 text-slate-900 placeholder:text-slate-500 focus-visible:ring-red-600"
                                 />
                             </div>
 
-                            <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-600 hover:bg-blue-500 text-white">
+                            <Button type="submit" disabled={isSubmitting} className="w-full bg-red-600 hover:bg-red-500 text-white">
                                 {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
                                 เพิ่ม
                             </Button>
@@ -183,17 +183,17 @@ export default function CriteriaPage() {
                     {loading ? (
                         <div className="space-y-4">
                             {[1, 2, 3].map((i) => (
-                                <Skeleton key={i} className="h-[76px] w-full rounded-lg bg-slate-900/30" />
+                                <Skeleton key={i} className="h-[76px] w-full rounded-lg" />
                             ))}
                         </div>
                     ) : criteria.length === 0 ? (
                         <p className="text-slate-500 italic">ยังไม่มีเกณฑ์</p>
                     ) : (
                         criteria.map((item) => (
-                            <div key={item.id} className="flex items-start justify-between p-4 rounded-lg border border-slate-800 bg-slate-900/30 hover:bg-slate-900/50 transition-colors">
+                            <div key={item.id} className="flex items-start justify-between p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors">
                                 <div>
                                     <div className="flex items-center gap-2">
-                                        <h4 className="font-medium text-white">{item.title}</h4>
+                                        <h4 className="font-medium text-slate-900">{item.title}</h4>
                                     </div>
                                     {item.description && <p className="text-sm text-slate-500 mt-1">{item.description}</p>}
                                 </div>
@@ -201,7 +201,7 @@ export default function CriteriaPage() {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => setCriterionToDelete(item.id)}
-                                    className="text-slate-500 hover:text-red-400 hover:bg-red-950/20"
+                                    className="text-slate-500 hover:text-red-600 hover:bg-red-50"
                                 >
                                     <Trash2 className="h-4 w-4" />
                                 </Button>
@@ -212,15 +212,15 @@ export default function CriteriaPage() {
             </div>
 
             <AlertDialog open={!!criterionToDelete} onOpenChange={(open: boolean) => !open && setCriterionToDelete(null)}>
-                <AlertDialogContent className="bg-slate-900 border-slate-800 text-white">
+                <AlertDialogContent className="bg-white border-slate-200 text-slate-900">
                     <AlertDialogHeader>
                         <AlertDialogTitle>คุณแน่ใจว่าต้องลบเกณฑ์นี้หรือไม่</AlertDialogTitle>
-                        <AlertDialogDescription className="text-slate-400">
+                        <AlertDialogDescription className="text-slate-500">
                             ไม่สามารถกู้คืนข้อมูลได้
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel className="bg-slate-800 text-white hover:bg-slate-700 border-slate-700">ยกเลิก</AlertDialogCancel>
+                        <AlertDialogCancel className="bg-white text-slate-900 hover:bg-slate-100 border-slate-200">ยกเลิก</AlertDialogCancel>
                         <AlertDialogAction onClick={confirmDelete} className="bg-red-600 text-white hover:bg-red-700">ลบ</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

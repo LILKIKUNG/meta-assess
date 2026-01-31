@@ -164,42 +164,42 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
                         placeholder="ค้นหาชื่อหรือแผนก"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-8 bg-slate-900 border-slate-800 text-white"
+                        className="pl-8 bg-white border-slate-200 text-slate-900 placeholder:text-slate-500"
                     />
                 </div>
-                <Button onClick={() => handleOpenSheet()} className="bg-blue-600 hover:bg-blue-500 text-white gap-2">
+                <Button onClick={() => handleOpenSheet()} className="bg-red-600 hover:bg-red-500 text-white gap-2">
                     <Plus className="h-4 w-4" /> เพิ่มบุคลากร
                 </Button>
             </div>
 
-            <div className="rounded-md border border-slate-800 bg-slate-900/50">
+            <div className="rounded-md border border-slate-200 bg-white">
                 <Table>
                     <TableHeader>
-                        <TableRow className="border-slate-800 hover:bg-slate-900/50">
-                            <TableHead className="text-slate-400">ชื่อ</TableHead>
-                            <TableHead className="text-slate-400">ตำแหน่ง</TableHead>
-                            <TableHead className="text-slate-400">แผนก</TableHead>
-                            <TableHead className="text-right text-slate-400">การกระทำ</TableHead>
+                        <TableRow className="border-slate-200 hover:bg-slate-50">
+                            <TableHead className="text-slate-500">ชื่อ</TableHead>
+                            <TableHead className="text-slate-500">ตำแหน่ง</TableHead>
+                            <TableHead className="text-slate-500">แผนก</TableHead>
+                            <TableHead className="text-right text-slate-500">การกระทำ</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {filteredProfiles.map((user) => (
-                            <TableRow key={user.id} className="border-slate-800 hover:bg-slate-900/30">
-                                <TableCell className="font-medium text-white">{user.full_name}</TableCell>
+                            <TableRow key={user.id} className="border-slate-200 hover:bg-slate-50">
+                                <TableCell className="font-medium text-slate-900">{user.full_name}</TableCell>
                                 <TableCell>
                                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${user.role === 'admin'
-                                        ? 'bg-red-500/10 text-red-500'
-                                        : 'bg-blue-500/10 text-blue-500'
+                                        ? 'bg-red-50 text-red-700 border border-red-100'
+                                        : 'bg-slate-100 text-slate-600 border border-slate-200'
                                         }`}>
                                         {user.role}
                                     </span>
                                 </TableCell>
-                                <TableCell className="text-slate-300">{user.department || '-'}</TableCell>
+                                <TableCell className="text-slate-500">{user.department || '-'}</TableCell>
                                 <TableCell className="text-right space-x-2">
-                                    <Button variant="ghost" size="icon" onClick={() => handleOpenSheet(user)} className="text-slate-400 hover:text-blue-400">
+                                    <Button variant="ghost" size="icon" onClick={() => handleOpenSheet(user)} className="text-slate-500 hover:text-red-600 hover:bg-red-50">
                                         <Pencil className="h-4 w-4" />
                                     </Button>
-                                    <Button variant="ghost" size="icon" onClick={() => setUserToDelete(user.id)} className="text-slate-400 hover:text-red-400">
+                                    <Button variant="ghost" size="icon" onClick={() => setUserToDelete(user.id)} className="text-slate-500 hover:text-red-600 hover:bg-red-50">
                                         <Trash2 className="h-4 w-4" />
                                     </Button>
                                 </TableCell>
@@ -211,10 +211,10 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
 
             {/* Create/Edit Sheet */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetContent className="bg-slate-950 border-l-slate-800 text-white">
+                <SheetContent className="bg-white border-l-slate-200 text-slate-900">
                     <SheetHeader>
-                        <SheetTitle className="text-white">{editingUser ? '' : 'เพิ่มบุคลากร'}</SheetTitle>
-                        <SheetDescription className="text-slate-400">
+                        <SheetTitle className="text-slate-900">{editingUser ? '' : 'เพิ่มบุคลากร'}</SheetTitle>
+                        <SheetDescription className="text-slate-500">
                             {editingUser ? 'แก้ไขข้อมูลสมาชิก' : 'สร้างบัญชีบุคลากร'}
                         </SheetDescription>
                     </SheetHeader>
@@ -225,7 +225,7 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
                                 required
                                 value={formData.fullName}
                                 onChange={e => setFormData({ ...formData, fullName: e.target.value })}
-                                className="bg-slate-900 border-slate-800"
+                                className="bg-white border-slate-200 text-slate-900"
                             />
                         </div>
 
@@ -237,7 +237,7 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
                                     type="email"
                                     value={formData.email}
                                     onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                    className="bg-slate-900 border-slate-800"
+                                    className="bg-white border-slate-200 text-slate-900"
                                 />
                             </div>
                         )}
@@ -249,17 +249,17 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
                                 required={!editingUser}
                                 value={formData.password}
                                 onChange={e => setFormData({ ...formData, password: e.target.value })}
-                                className="bg-slate-900 border-slate-800"
+                                className="bg-white border-slate-200 text-slate-900"
                             />
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium">ตำแหน่ง</label>
                             <Select value={formData.role} onValueChange={v => setFormData({ ...formData, role: v })}>
-                                <SelectTrigger className="bg-slate-900 border-slate-800">
+                                <SelectTrigger className="bg-white border-slate-200 text-slate-900">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-900 border-slate-800 text-white">
+                                <SelectContent className="bg-white border-slate-200 text-slate-900">
                                     <SelectItem value="staff">Staff</SelectItem>
                                     <SelectItem value="supervisor">Supervisor</SelectItem>
                                     <SelectItem value="admin">Admin</SelectItem>
@@ -272,13 +272,13 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
                             <Input
                                 value={formData.department}
                                 onChange={e => setFormData({ ...formData, department: e.target.value })}
-                                className="bg-slate-900 border-slate-800"
+                                className="bg-white border-slate-200 text-slate-900"
                             />
                         </div>
 
                         <div className="flex justify-end gap-3 pt-4">
-                            <Button type="button" variant="ghost" onClick={() => setIsOpen(false)} className="text-slate-400">ยกเลิก</Button>
-                            <Button type="submit" disabled={isLoading} className="bg-blue-600 hover:bg-blue-500">
+                            <Button type="button" variant="ghost" onClick={() => setIsOpen(false)} className="text-slate-500 hover:text-slate-900">ยกเลิก</Button>
+                            <Button type="submit" disabled={isLoading} className="bg-red-600 hover:bg-red-500 text-white">
                                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                                 {editingUser ? 'เปลี่ยนแปลง' : 'เพิ่มบุคลากร'}
                             </Button>
@@ -289,15 +289,15 @@ export function MembersClient({ initialProfiles }: { initialProfiles: any[] }) {
 
             {/* Delete Alert */}
             <AlertDialog open={!!userToDelete} onOpenChange={(open: boolean) => !open && setUserToDelete(null)}>
-                <AlertDialogContent className="bg-slate-900 border-slate-800 text-white">
+                <AlertDialogContent className="bg-white border-slate-200 text-slate-900">
                     <AlertDialogHeader>
                         <AlertDialogTitle>คุณแน่ใจว่าต้องลบบุคลากรนี้หรือไม่?</AlertDialogTitle>
-                        <AlertDialogDescription className="text-slate-400">
+                        <AlertDialogDescription className="text-slate-500">
                             ลบบุคลากร
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel className="bg-slate-800 text-white hover:bg-slate-700 border-slate-700">ยกเลิก</AlertDialogCancel>
+                        <AlertDialogCancel className="bg-white text-slate-900 hover:bg-slate-100 border-slate-200">ยกเลิก</AlertDialogCancel>
                         <AlertDialogAction onClick={confirmDelete} className="bg-red-600 text-white hover:bg-red-700">ลบ</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

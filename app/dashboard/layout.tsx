@@ -70,12 +70,12 @@ export default function DashboardLayout({
     ]
 
     return (
-        <div className="min-h-screen bg-slate-950 flex">
+        <div className="min-h-screen bg-slate-50 flex">
             {/* Sidebar */}
-            <aside className="w-64 border-r border-slate-800 bg-slate-950 hidden md:flex flex-col">
-                <div className="h-16 flex items-center px-6 border-b border-slate-800">
-                    <div className="flex items-center gap-2.5 font-bold text-lg text-white">
-                        <div className="rounded-lg bg-blue-600 p-1.5 text-white">
+            <aside className="w-64 border-r border-slate-200 bg-white hidden md:flex flex-col">
+                <div className="h-16 flex items-center px-6 border-b border-slate-200">
+                    <div className="flex items-center gap-2.5 font-bold text-lg text-slate-900">
+                        <div className="rounded-lg bg-red-600 p-1.5 text-white">
                             <Activity className="h-4 w-4" />
                         </div>
                         <span>ระบบประเมิน</span>
@@ -90,14 +90,14 @@ export default function DashboardLayout({
                     />
                 </div>
 
-                <div className="p-4 border-t border-slate-800">
-                    <div className="flex items-center gap-3 px-3 py-3 rounded-lg border border-slate-800 bg-slate-900/50 mb-4">
-                        <div className="h-8 w-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 font-bold text-xs">
+                <div className="p-4 border-t border-slate-200">
+                    <div className="flex items-center gap-3 px-3 py-3 rounded-lg border border-slate-200 bg-slate-50 mb-4">
+                        <div className="h-8 w-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 font-bold text-xs">
                             {profile?.full_name?.charAt(0) || 'U'}
                         </div>
                         <div className="overflow-hidden">
                             {profile ? (
-                                <p className="text-sm font-medium text-white truncate">{profile.full_name}</p>
+                                <p className="text-sm font-medium text-slate-900 truncate">{profile.full_name}</p>
                             ) : (
                                 <Skeleton className="h-4 w-32 mb-1" />
                             )}
@@ -110,7 +110,7 @@ export default function DashboardLayout({
                     </div>
                     <Button
                         variant="ghost"
-                        className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-950/20 gap-2"
+                        className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50 gap-2"
                         onClick={handleLogout}
                     >
                         <LogOut className="h-4 w-4" />
@@ -120,20 +120,20 @@ export default function DashboardLayout({
             </aside>
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col min-w-0 bg-slate-950">
+            <div className="flex-1 flex flex-col min-w-0 bg-slate-50">
                 {/* Mobile Header */}
-                <header className="h-16 border-b border-slate-800 flex items-center px-6 md:hidden bg-slate-950 gap-4">
+                <header className="h-16 border-b border-slate-200 flex items-center px-6 md:hidden bg-white gap-4">
                     <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                         <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" className="shrink-0 text-slate-400 hover:text-white">
+                            <Button variant="ghost" size="icon" className="shrink-0 text-slate-500 hover:text-slate-900">
                                 <Menu className="h-5 w-5" />
                                 <span className="sr-only">Open menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="w-72 bg-slate-950 border-r-slate-800 p-0 flex flex-col text-white">
-                            <div className="h-16 flex items-center px-6 border-b border-slate-800">
-                                <div className="flex items-center gap-2.5 font-bold text-lg text-white">
-                                    <div className="rounded-lg bg-blue-600 p-1.5 text-white">
+                        <SheetContent side="left" className="w-72 bg-white border-r-slate-200 p-0 flex flex-col text-slate-900">
+                            <div className="h-16 flex items-center px-6 border-b border-slate-200">
+                                <div className="flex items-center gap-2.5 font-bold text-lg text-slate-900">
+                                    <div className="rounded-lg bg-red-600 p-1.5 text-white">
                                         <Activity className="h-4 w-4" />
                                     </div>
                                     <span>ระบบประเมิน</span>
@@ -149,14 +149,14 @@ export default function DashboardLayout({
                                 />
                             </div>
 
-                            <div className="p-4 border-t border-slate-800">
-                                <div className="flex items-center gap-3 px-3 py-3 rounded-lg border border-slate-800 bg-slate-900/50 mb-4">
-                                    <div className="h-8 w-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 font-bold text-xs">
+                            <div className="p-4 border-t border-slate-200">
+                                <div className="flex items-center gap-3 px-3 py-3 rounded-lg border border-slate-200 bg-slate-50 mb-4">
+                                    <div className="h-8 w-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 font-bold text-xs">
                                         {profile?.full_name?.charAt(0) || 'U'}
                                     </div>
                                     <div className="overflow-hidden">
                                         {profile ? (
-                                            <p className="text-sm font-medium text-white truncate">{profile.full_name}</p>
+                                            <p className="text-sm font-medium text-slate-900 truncate">{profile.full_name}</p>
                                         ) : (
                                             <Skeleton className="h-4 w-32 mb-1" />
                                         )}
@@ -169,7 +169,7 @@ export default function DashboardLayout({
                                 </div>
                                 <Button
                                     variant="ghost"
-                                    className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-950/20 gap-2"
+                                    className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50 gap-2"
                                     onClick={() => {
                                         setIsMobileMenuOpen(false)
                                         handleLogout()
@@ -182,15 +182,15 @@ export default function DashboardLayout({
                         </SheetContent>
                     </Sheet>
 
-                    <div className="flex items-center gap-2.5 font-bold text-lg text-white">
-                        <div className="rounded-lg bg-blue-600 p-1.5 text-white">
+                    <div className="flex items-center gap-2.5 font-bold text-lg text-slate-900">
+                        <div className="rounded-lg bg-red-600 p-1.5 text-white">
                             <Activity className="h-4 w-4" />
                         </div>
                         <span>ระบบประเมินบุคลากร</span>
                     </div>
                 </header>
 
-                <main className="flex-1 overflow-y-auto bg-slate-950 text-slate-50">
+                <main className="flex-1 overflow-y-auto bg-slate-50 text-slate-900">
                     {children}
                 </main>
             </div>

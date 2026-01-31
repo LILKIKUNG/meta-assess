@@ -155,8 +155,8 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
     // Helper for Progress Color
     const getProgressColor = (score: number) => {
         if (score >= 16) return "bg-emerald-500" // Excellent (>= 80%)
-        if (score >= 10) return "bg-blue-500"    // Good (>= 50%)
-        return "bg-amber-500"                   // Warning
+        if (score >= 10) return "bg-orange-500"    // Good/Fair (>= 50%)
+        return "bg-red-500"                   // Poor (< 50%)
         // Implementation note: Shadcn Progress component usually uses a single indicator color class. 
         // We might need to override it via className or use inline styles if the component structure is strict.
         // Assuming standard tailwind Override works on the indicator if we pass strict class.
@@ -166,8 +166,8 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
 
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-            <DialogContent className="sm:max-w-2xl bg-slate-950 border-slate-800 text-white max-h-[85vh] p-0 gap-0 flex flex-col overflow-hidden">
-                <DialogHeader className="p-6 pb-4 border-b border-slate-800/50 bg-slate-950 pr-12">
+            <DialogContent className="sm:max-w-2xl bg-white border-slate-200 text-slate-900 max-h-[85vh] p-0 gap-0 flex flex-col overflow-hidden">
+                <DialogHeader className="p-6 pb-4 border-b border-slate-200 bg-white pr-12">
                     <DialogTitle className="text-2xl font-bold flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <span>ผลการประเมิน</span>
@@ -184,40 +184,40 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
                             </Badge>
                         )}
                     </DialogTitle>
-                    <DialogDescription className="text-slate-400">
+                    <DialogDescription className="text-slate-500">
                         รายละเอียดคะแนนรายข้อ
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="flex-1 overflow-y-auto p-6 pt-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-800 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent">
+                <div className="flex-1 overflow-y-auto p-6 pt-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent">
                     {loading ? (
                         <div className="space-y-6 py-4">
                             <div className="flex justify-between">
-                                <Skeleton className="h-5 w-32 bg-slate-800" />
-                                <Skeleton className="h-5 w-24 bg-slate-800" />
+                                <Skeleton className="h-5 w-32 bg-slate-100" />
+                                <Skeleton className="h-5 w-24 bg-slate-100" />
                             </div>
-                            <Skeleton className="h-px w-full bg-slate-800" />
+                            <Skeleton className="h-px w-full bg-slate-200" />
                             {[1, 2, 3].map(i => (
                                 <div key={i} className="space-y-2">
                                     <div className="flex justify-between">
-                                        <Skeleton className="h-4 w-48 bg-slate-800" />
-                                        <Skeleton className="h-4 w-12 bg-slate-800" />
+                                        <Skeleton className="h-4 w-48 bg-slate-100" />
+                                        <Skeleton className="h-4 w-12 bg-slate-100" />
                                     </div>
-                                    <Skeleton className="h-3 w-full bg-slate-800" />
+                                    <Skeleton className="h-3 w-full bg-slate-100" />
                                 </div>
                             ))}
                         </div>
                     ) : details ? (
                         <div className="space-y-6 py-4">
                             {/* Header Info */}
-                            <div className="grid grid-cols-2 gap-4 text-sm bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+                            <div className="grid grid-cols-2 gap-4 text-sm bg-slate-50 p-4 rounded-lg border border-slate-200">
                                 <div>
                                     <p className="text-slate-500 mb-1">ผู้ถูกประเมิน</p>
-                                    <p className="font-medium text-white text-base">{details.subject_name}</p>
+                                    <p className="font-medium text-slate-900 text-base">{details.subject_name}</p>
                                 </div>
                                 <div className="text-right">
                                     <p className="text-slate-500 mb-1">ผู้ประเมิน</p>
-                                    <p className="font-medium text-white text-base">{details.evaluator_name}</p>
+                                    <p className="font-medium text-slate-900 text-base">{details.evaluator_name}</p>
                                 </div>
                             </div>
 
@@ -228,18 +228,18 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
                                         <div key={item.score_id} className="space-y-2">
                                             <div className="flex justify-between items-end">
                                                 <div>
-                                                    <h4 className="font-medium text-slate-200">{item.criteria_title}</h4>
+                                                    <h4 className="font-medium text-slate-700">{item.criteria_title}</h4>
                                                     {item.criteria_desc && <p className="text-xs text-slate-500">{item.criteria_desc}</p>}
                                                 </div>
                                                 <div className="text-right">
-                                                    <span className={`text-lg font-bold ${item.score >= 16 ? 'text-emerald-400' :
-                                                        item.score >= 10 ? 'text-blue-400' :
-                                                            'text-amber-400'
+                                                    <span className={`text-lg font-bold ${item.score >= 16 ? 'text-emerald-500' :
+                                                        item.score >= 10 ? 'text-orange-500' :
+                                                            'text-red-500'
                                                         }`}>{item.score}</span>
                                                     <span className="text-xs text-slate-500 ml-1">/ 20</span>
                                                 </div>
                                             </div>
-                                            <div className="relative h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                                            <div className="relative h-2 w-full overflow-hidden rounded-full bg-slate-100">
                                                 <div
                                                     className={`h-full transition-all duration-500 ease-in-out ${getProgressColor(item.score)}`}
                                                     style={{ width: `${(item.score / 20) * 100}%` }}
@@ -248,7 +248,7 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
                                         </div>
                                     ))
                                 ) : (
-                                    <div className="text-center py-8 text-slate-500 bg-slate-900/20 rounded-lg border border-slate-800 border-dashed">
+                                    <div className="text-center py-8 text-slate-500 bg-slate-50 rounded-lg border border-slate-200 border-dashed">
                                         <AlertCircle className="h-8 w-8 mx-auto mb-2 opacity-50" />
                                         ยังไม่มีคะแนนบันทึก
                                     </div>
@@ -258,9 +258,9 @@ export function EvaluationDetailModal({ assessmentId, isOpen, onClose }: Evaluat
                     ) : null}
                 </div>
 
-                <DialogFooter className="p-6 pt-0 sm:justify-end bg-slate-950">
+                <DialogFooter className="p-6 pt-0 sm:justify-end bg-white">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary" className="bg-slate-800 text-white hover:bg-slate-700 w-full sm:w-auto">
+                        <Button type="button" variant="secondary" className="bg-slate-100 text-slate-900 hover:bg-slate-200 w-full sm:w-auto">
                             ปิด
                         </Button>
                     </DialogClose>

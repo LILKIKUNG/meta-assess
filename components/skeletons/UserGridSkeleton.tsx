@@ -5,7 +5,7 @@ export function UserGridSkeleton() {
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (
-                <Card key={i} className="border-slate-800 bg-slate-900/50">
+                <Card key={i} className="border-slate-200 bg-white">
                     <CardHeader className="flex flex-row items-center gap-4 pb-2">
                         <Skeleton className="h-10 w-10 rounded-full" />
                         <div className="flex-1 space-y-2">
@@ -20,7 +20,7 @@ export function UserGridSkeleton() {
                                 <Skeleton className="h-4 w-[120px]" /> {/* Value */}
                             </div>
                         </div>
-                        <div className="mt-4 pt-4 border-t border-slate-800 flex justify-end gap-2">
+                        <div className="mt-4 pt-4 border-t border-slate-200 flex justify-end gap-2">
                             <Skeleton className="h-9 w-[110px]" /> {/* Button 1 (sm=h-9) */}
                             <Skeleton className="h-9 w-[80px]" />  {/* Button 2 (sm=h-9) */}
                         </div>

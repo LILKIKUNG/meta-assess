@@ -77,24 +77,24 @@ export default function EvaluationsPage() {
 
     if (loading) {
         return (
-            <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-white">
+            <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-slate-900">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight mb-2">ประวัติการประเมิน</h1>
-                    <p className="text-slate-400">ดูประวัติการประเมินทั้งหมด</p>
+                    <h1 className="text-3xl font-bold tracking-tight mb-2 text-slate-900">ประวัติการประเมิน</h1>
+                    <p className="text-slate-500">ดูประวัติการประเมินทั้งหมด</p>
                 </div>
                 <div className="grid gap-4">
                     {[1, 2, 3].map((i) => (
-                        <div key={i} className="border border-slate-800 bg-slate-900/50 rounded-lg p-6 flex items-center justify-between">
+                        <div key={i} className="border border-slate-200 bg-white rounded-lg p-6 flex items-center justify-between">
                             <div className="flex items-center gap-4">
-                                <Skeleton className="h-10 w-10 rounded-full bg-slate-800" />
+                                <Skeleton className="h-10 w-10 rounded-full" />
                                 <div className="space-y-2">
-                                    <Skeleton className="h-5 w-48 bg-slate-800" />
-                                    <Skeleton className="h-4 w-32 bg-slate-800" />
+                                    <Skeleton className="h-5 w-48" />
+                                    <Skeleton className="h-4 w-32" />
                                 </div>
                             </div>
                             <div className="hidden md:flex flex-col items-end gap-2">
-                                <Skeleton className="h-4 w-24 bg-slate-800" />
-                                <Skeleton className="h-5 w-20 rounded-full bg-slate-800" />
+                                <Skeleton className="h-4 w-24" />
+                                <Skeleton className="h-5 w-20 rounded-full" />
                             </div>
                         </div>
                     ))}
@@ -104,10 +104,10 @@ export default function EvaluationsPage() {
     }
 
     return (
-        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-white">
+        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-slate-900">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight mb-2">ประวัติการประเมิน</h1>
-                <p className="text-slate-400">ดูประวัติการประเมินทั้งหมด</p>
+                <h1 className="text-3xl font-bold tracking-tight mb-2 text-slate-900">ประวัติการประเมิน</h1>
+                <p className="text-slate-500">ดูประวัติการประเมินทั้งหมด</p>
             </div>
 
             <div className="grid gap-4">
@@ -115,19 +115,19 @@ export default function EvaluationsPage() {
                     <Card
                         key={assessment.id}
                         onClick={() => handleCardClick(assessment.id)}
-                        className="border-slate-800 bg-slate-900/50 text-white cursor-pointer hover:bg-slate-800/80 transition-all active:scale-[0.99]"
+                        className="border-slate-200 bg-white text-slate-900 cursor-pointer hover:shadow-md transition-all active:scale-[0.99]"
                     >
                         <CardContent className="flex items-center justify-between p-6">
                             <div className="flex items-center gap-4">
-                                <div className="h-10 w-10 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500">
+                                <div className="h-10 w-10 rounded-full bg-red-600/20 flex items-center justify-center text-red-600">
                                     <FileText className="h-5 w-5" />
                                 </div>
                                 <div>
-                                    <p className="font-medium text-white">
+                                    <p className="font-medium text-slate-900">
                                         {/* @ts-ignore - Supabase join types can be tricky */}
                                         {assessment.subject?.full_name || 'Unknown Subject'}
                                     </p>
-                                    <p className="text-sm text-slate-400 flex items-center gap-2">
+                                    <p className="text-sm text-slate-500 flex items-center gap-2">
                                         ประเมิน โดย: {assessment.evaluator?.full_name || 'Unknown'}
                                     </p>
                                 </div>
@@ -135,7 +135,7 @@ export default function EvaluationsPage() {
 
                             <div className="flex items-center gap-6">
                                 <div className="text-right hidden md:block">
-                                    <p className="text-sm text-slate-400 flex items-center gap-1.5 justify-end">
+                                    <p className="text-sm text-slate-500 flex items-center gap-1.5 justify-end">
                                         <Calendar className="h-3 w-3" />
                                         {new Date(assessment.created_at).toLocaleDateString()}
                                     </p>
@@ -151,7 +151,7 @@ export default function EvaluationsPage() {
                     </Card>
                 ))}
                 {assessments.length === 0 && (
-                    <div className="text-center py-10 text-slate-500 bg-slate-900/20 rounded-lg border border-slate-800 border-dashed">
+                    <div className="text-center py-10 text-slate-500 bg-slate-50 rounded-lg border border-slate-200 border-dashed">
                         No evaluations found.
                     </div>
                 )}

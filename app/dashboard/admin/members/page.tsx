@@ -33,11 +33,11 @@ export default async function MembersPage() {
     }
 
     return (
-        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-white">
+        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-slate-900">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight mb-2">จัดการบุคลากร</h1>
-                    <p className="text-slate-400">เพิ่ม ลบ แก้ไข ข้อมูลสมาชิกในระบบ</p>
+                    <h1 className="text-3xl font-bold tracking-tight mb-2 text-slate-900">จัดการบุคลากร</h1>
+                    <p className="text-slate-500">เพิ่ม ลบ แก้ไข ข้อมูลสมาชิกในระบบ</p>
                 </div>
             </div>
 

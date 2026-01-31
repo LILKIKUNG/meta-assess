@@ -126,17 +126,17 @@ export default function UsersPage() {
     )
 
     return (
-        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-white">
+        <div className="p-6 md:p-10 max-w-7xl mx-auto space-y-8 text-slate-900">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight mb-2">รายชื่อบุคลากร</h1>
-                    <p className="text-slate-400">จัดการและดูข้อมูลบุคลากร</p>
+                    <p className="text-slate-500">จัดการและดูข้อมูลบุคลากร</p>
                 </div>
                 <div className="relative w-full md:w-64">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-500" />
                     <Input
                         placeholder="ค้นหาบุคลากร..."
-                        className="pl-9 bg-slate-900 border-slate-700 text-white placeholder:text-slate-500 focus-visible:ring-blue-600"
+                        className="pl-9 bg-white border-slate-200 text-slate-900 placeholder:text-slate-500 focus-visible:ring-red-600"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -154,28 +154,28 @@ export default function UsersPage() {
             ) : !loading ? (
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 animate-in fade-in zoom-in-95 duration-500">
                     {users.map((user) => (
-                        <Card key={user.id} className="border-slate-800 bg-slate-900/50 text-white hover:bg-slate-900/80 transition-colors">
+                        <Card key={user.id} className="border-slate-200 bg-white text-slate-900 hover:shadow-md transition-all">
                             <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                                <div className="h-10 w-10 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500 font-bold border border-blue-600/30">
+                                <div className="h-10 w-10 rounded-full bg-red-50 flex items-center justify-center text-red-600 font-bold border border-red-100">
                                     {user.full_name?.charAt(0) || 'U'}
                                 </div>
                                 <div className="flex-1 overflow-hidden">
                                     <CardTitle className="text-base truncate">{user.full_name}</CardTitle>
-                                    <CardDescription className="text-slate-400 truncate flex items-center gap-1.5 mt-0.5">
+                                    <CardDescription className="text-slate-500 truncate flex items-center gap-1.5 mt-0.5">
                                         {user.role === 'admin' ? <Shield className="h-3 w-3 text-amber-500" /> : <User className="h-3 w-3" />}
                                         {user.role}
                                     </CardDescription>
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <div className="text-sm text-slate-400 flex flex-col gap-1.5">
+                                <div className="text-sm text-slate-500 flex flex-col gap-1.5">
                                     <div className="flex items-center justify-between">
                                         <span>แผนก:</span>
-                                        <span className="text-white font-medium">{user.department || '-'}</span>
+                                        <span className="text-slate-900 font-medium">{user.department || '-'}</span>
                                     </div>
                                     {/* Email is typically in auth.users, assume checking profile only for now */}
                                 </div>
-                                <div className="mt-4 pt-4 border-t border-slate-800 flex justify-end gap-2">
+                                <div className="mt-4 pt-4 border-t border-slate-100 flex justify-end gap-2">
                                     {currentUserRole === 'admin' && (
                                         <Button
                                             variant="destructive"
@@ -189,7 +189,7 @@ export default function UsersPage() {
                                     )}
                                     {(currentUserRole === 'admin' || currentUserRole === 'supervisor') && (
                                         <Link href={`/dashboard/evaluation/${user.id}`}>
-                                            <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white">ประเมิน</Button>
+                                            <Button size="sm" className="bg-red-600 hover:bg-red-500 text-white">ประเมิน</Button>
                                         </Link>
                                     )}
                                 </div>
@@ -205,15 +205,15 @@ export default function UsersPage() {
             ) : null}
 
             <AlertDialog open={!!userToReset} onOpenChange={(open: boolean) => !open && setUserToReset(null)}>
-                <AlertDialogContent className="bg-slate-900 border-slate-800 text-white">
+                <AlertDialogContent className="bg-white border-slate-200 text-slate-900">
                     <AlertDialogHeader>
                         <AlertDialogTitle>คุณแน่ใจใช่ไหมที่จะล้างประวัติ?</AlertDialogTitle>
-                        <AlertDialogDescription className="text-slate-400">
+                        <AlertDialogDescription className="text-slate-500">
                             การกระทำนี้ไม่สามารถยกเลิกได้ ประวัติคะแนนทั้งหมดของ {userToReset?.name} จะถูกลบอย่างถาวร
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel className="bg-slate-800 text-white hover:bg-slate-700 border-slate-700">ยกเลิก</AlertDialogCancel>
+                        <AlertDialogCancel className="bg-white text-slate-900 hover:bg-slate-100 border-slate-200">ยกเลิก</AlertDialogCancel>
                         <AlertDialogAction onClick={confirmReset} className="bg-red-600 text-white hover:bg-red-700">ยืนยัน</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
