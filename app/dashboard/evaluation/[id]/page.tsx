@@ -190,7 +190,7 @@ export default function EvaluationPage({ params }: { params: { id: string } }) {
             <div>
                 <h1 className="text-3xl font-bold tracking-tight mb-2">ประเมินบุคลากร</h1>
                 <p className="text-slate-500">
-                    ประเมินคุณ <span className="text-red-600 font-semibold">{subject.full_name}</span> ({subject.department})
+                    ประเมิน <span className="text-red-600 font-semibold">{subject.full_name}</span> ({subject.department})
                 </p>
             </div>
 

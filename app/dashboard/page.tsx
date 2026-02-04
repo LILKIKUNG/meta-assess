@@ -184,7 +184,7 @@ export default function DashboardPage() {
                         <div>
                             <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2">ภาพรวม</h1>
                             <p className="text-slate-500">
-                                คุณ, <span className="text-red-600 font-semibold">{profile?.full_name || 'Admin User'}</span>
+                                 <span className="text-red-600 font-semibold">{profile?.full_name || 'Admin User'}</span>
                                 <span className="ml-2 px-2 py-0.5 rounded-full bg-slate-100 text-xs text-slate-600 border border-slate-200">
                                     {profile?.role || 'admin'}
                                 </span>

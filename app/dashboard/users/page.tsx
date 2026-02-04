@@ -153,7 +153,7 @@ export default function UsersPage() {
                 />
             ) : !loading ? (
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 animate-in fade-in zoom-in-95 duration-500">
-                    {users.map((user) => (
+                    {filteredUsers.map((user) => (
                         <Card key={user.id} className="border-slate-200 bg-white text-slate-900 hover:shadow-md transition-all">
                             <CardHeader className="flex flex-row items-center gap-4 pb-2">
                                 <div className="h-10 w-10 rounded-full bg-red-50 flex items-center justify-center text-red-600 font-bold border border-red-100">
@@ -196,9 +196,9 @@ export default function UsersPage() {
                             </CardContent>
                         </Card>
                     ))}
-                    {users.length === 0 && !loading && (
+                    {filteredUsers.length === 0 && !loading && (
                         <div className="col-span-full text-center py-10 text-slate-500">
-                            No users found.
+                            No users found matching "{searchTerm}".
                         </div>
                     )}
                 </div>
